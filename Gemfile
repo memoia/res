@@ -36,3 +36,4 @@ gem 'spring',        group: :development
 #lab 2
 gem 'carrierwave'
 gem 'bootstrap-sass'
+gem 'quiet_assets'
