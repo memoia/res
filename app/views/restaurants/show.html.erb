@@ -20,5 +20,12 @@
   <%= @restaurant.phone %>
 </p>
 
+<p>
+  <strong>Avatar:</strong>
+ 
+ <%= image_tag @restaurant.avatar.url(:thumb)%>
+
+</p>
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

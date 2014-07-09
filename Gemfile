@@ -39,4 +39,4 @@ gem 'spring', group: :development
 gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'quiet_assets'
-gem 'rmagick', '2.13.2'
+gem 'rmagick', :require => 'RMagick'
