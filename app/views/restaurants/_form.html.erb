@@ -27,6 +27,13 @@
     <%= f.label :phone %><br>
     <%= f.text_field :phone %>
   </div>
+  <div class="avatar">
+    <%= f.file_field :avatar %>
+  </div>
+  <div class="avatarurl">
+    <%= f.label :remote_image_url, "or image URL" %><br />
+    <%= f.text_field :remote_image_url %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
