@@ -1,0 +1,11 @@
+<%# add navigation links to this file %>
+<% if owner_signed_in? %>
+  <li><%= link_to 'Edit account', edit_owner_registration_path %></li>
+  <li><%= link_to 'Sign out', destroy_owner_session_path, :method=>'delete' %></li>
+<% else %>
+  <li><%= link_to 'Sign in', new_owner_session_path %></li>
+  <li><%= link_to 'Sign up', new_owner_registration_path %></li>
+<% end %>
+<% if owner_signed_in? %>
+  <li><%= link_to 'Owners', owners_path %></li>
+<% end %>
