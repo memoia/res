@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  include Devise
+
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   
   # GET /restaurants
@@ -27,7 +29,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
 
     respond_to do |format|
-      if @restaurant.save
+      if Restaurant.addOwner(@restaurant, current_owner)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
       else

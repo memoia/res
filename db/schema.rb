@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713154253) do
+ActiveRecord::Schema.define(version: 20140714190808) do
 
   create_table "owners", force: true do |t|
     t.string   "name",                   default: "", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140713154253) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar"
+    t.integer  "owner_id"
   end
 
 end

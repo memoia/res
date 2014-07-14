@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  desc: MyString
-  full_address: MyString
-  phone: MyString
+  name: "Go Go Thai"
+  desc: "A delicious Thai Restaurant"
+  full_address: "333 W Lake St. Chicago IL"
+  phone: "847 219 8743"
+
+
 
 two:
-  name: MyString
-  desc: MyString
-  full_address: MyString
-  phone: MyString
+  name: "Le Skunk"
+  desc: "A horrible french Restaurant"
+  full_address: "2222 W. LePeu, CHicago, IL"
+  phone: "312 555 7738"
