@@ -2,12 +2,14 @@ class RestaurantsController < ApplicationController
   include Devise
 
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_owner!, only: [:new, :create]
   
   # GET /restaurants
   # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
   end
+
 
   # GET /restaurants/1
   # GET /restaurants/1.json
@@ -17,6 +19,9 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
+    #@user = User.new
+    @owner = Owner.new
   end
 
   # GET /restaurants/1/edit
@@ -29,6 +34,8 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
 
     respond_to do |format|
+      #ovveride default save method with add
+      # @restaurant.save
       if Restaurant.addOwner(@restaurant, current_owner)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
@@ -43,7 +50,8 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1.json
   def update
     respond_to do |format|
-      if @restaurant.update(restaurant_params)
+      #if @restaurant.update(restaurant_params)
+      if Restaurant.confirmOwner(@restaurant, current_owner, restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
         format.json { render :show, status: :ok, location: @restaurant }
       else

@@ -40,6 +40,7 @@ gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'quiet_assets'
 gem 'rmagick', :require => 'RMagick'
+gem 'aws-sdk'
 
 #lab 3
 gem 'devise'
