@@ -4,14 +4,15 @@ class Restaurant < ActiveRecord::Base
 	belongs_to :owner
 	validates :name, :phone, :avatar, :owner_id, presence: true
     #replacing default save in rails
-    def self.addOwner(restaurant, current_owner)
+    def self.add_owner(restaurant, current_owner)
       #sets foriegn owner key in restaurant
       restaurant.owner = current_owner
       restaurant.save()
     end
 
-    def self.confirmOwner(restaurant, current_owner, restaurant_params)
-      restaurant.owner == current_owner
-      restaurant.update(restaurant_params)
+    def self.confirm_owner(restaurant, current_owner, restaurant_params)
+      if restaurant.owner == current_owner
+        restaurant.update(restaurant_params)
+      end
     end
 end

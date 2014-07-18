@@ -36,7 +36,7 @@ class RestaurantsController < ApplicationController
     respond_to do |format|
       #ovveride default save method with add
       # @restaurant.save
-      if Restaurant.addOwner(@restaurant, current_owner)
+      if Restaurant.add_owner(@restaurant, current_owner)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
       else
@@ -51,7 +51,7 @@ class RestaurantsController < ApplicationController
   def update
     respond_to do |format|
       #if @restaurant.update(restaurant_params)
-      if Restaurant.confirmOwner(@restaurant, current_owner, restaurant_params)
+      if Restaurant.confirm_owner(@restaurant, current_owner, restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
         format.json { render :show, status: :ok, location: @restaurant }
       else
