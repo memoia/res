@@ -77,6 +77,7 @@ class RestaurantsController < ApplicationController
       @restaurant = Restaurant.find(params[:id])
     end
 
+    #Add owner param here.
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
       params.require(:restaurant).permit(:name, :desc, :full_address, :phone, :avatar)
