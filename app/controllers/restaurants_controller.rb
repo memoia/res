@@ -3,7 +3,9 @@ class RestaurantsController < ApplicationController
 
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_owner!, only: [:new, :create]
-  
+  before_filter :credentials_filter, :only => [:edit, :destroy]
+
+
   # GET /restaurants
   # GET /restaurants.json
   def index
@@ -32,11 +34,12 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.owner = current_owner
+
 
     respond_to do |format|
       #ovveride default save method with add
-      # @restaurant.save
-      if Restaurant.add_owner(@restaurant, current_owner)
+      if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
         format.json { render :show, status: :created, location: @restaurant }
       else
@@ -50,8 +53,7 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1.json
   def update
     respond_to do |format|
-      #if @restaurant.update(restaurant_params)
-      if Restaurant.confirm_owner(@restaurant, current_owner, restaurant_params)
+      if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
         format.json { render :show, status: :ok, location: @restaurant }
       else
@@ -72,14 +74,22 @@ class RestaurantsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
 
-    #Add owner param here.
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :desc, :full_address, :phone, :avatar)
+  #Add owner param here.
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :desc, :full_address, :phone, :avatar)
+  end
+
+  def credentials_filter
+    owner = Restaurant.find(params[:id]).owner
+    unless owner == current_owner
+      flash[:message] = "Please login with the appropiate credentials"
+      redirect_to :root
     end
+  end
 end
