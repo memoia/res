@@ -37,5 +37,9 @@
 
 </p>
 
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+<p>"Hello World"</p>
+<% if @restaurant.owner == current_owner %>
+  | <%= link_to 'Eddit', edit_restaurant_path(@restaurant) %>
+<% end %>
+
 <%= link_to 'Back', restaurants_path %>
