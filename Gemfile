@@ -32,6 +32,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 
 #new gems
+gem 'pry'
 
 #lab 1
 

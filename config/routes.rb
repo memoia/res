@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
+
   devise_for :owners
 
-  resources :owners
-  resources :restaurants
+  resources :restaurants do 
+    resources :reservations
+  end
+
+  #resources :owners
+  #resources :restaurants
+  #resources :reservations
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'restaurants#index'
+
 
   #match 'owners/:id' => 'owners#show', via: :get
 

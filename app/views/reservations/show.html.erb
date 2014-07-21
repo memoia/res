@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @reservation.email %>
+</p>
+
+<p>
+  <strong>Requested date:</strong>
+  <%= @reservation.requested_date %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @reservation.message %>
+</p>
+
+<p>
+  <strong>Restaurant:</strong>
+  <%= @reservation.restaurant_id %>
+</p>
+
+<p>
+  <strong>Confirmed:</strong>
+  <%= @reservation.confirmed %>
+</p>
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
+<%= link_to 'Back', restaurant_reservation_path %>

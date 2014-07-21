@@ -1,0 +1,16 @@
+  <h2>Make a reservation</h2>
+  <%= form_for @reservation, url: restaurant_reservations_path, :html => {'data-validate' => "parsley"}  do  |f| %>
+
+      <p><%= f.label :email %></p>
+      <p><%= f.text_field :email, 'data-trigger' => 'change', 'data-required' =>'true', 'data-type' => 'email'  %></p>
+      <p><%= f.label :message, "Message" %></p>
+      <p><%= f.text_area :message %></p>
+      <p><%= f.label :requested_date, "For when?" %></p>
+      <p><%= f.date_select :requested_date, {:order => [:month, :day, :year],:prompt => true, :start_year => Time.now.year, :end_year => Time.now.year + 1} %></p>
+
+    <p>
+
+      <%#= recaptcha_tags %>
+      <%= f.submit "submit resevation"%><br>
+    </p>
+  <% end %>

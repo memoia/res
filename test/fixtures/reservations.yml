@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  requested_date: 2014-07-20 18:31:42
+  message: MyText
+  restaurant_id: 1
+  confirmed: 
+
+two:
+  email: MyString
+  requested_date: 2014-07-20 18:31:42
+  message: MyText
+  restaurant_id: 1
+  confirmed: 
