@@ -1,5 +1,5 @@
   <h2>Make a reservation</h2>
-  <%= form_for @reservation, url: restaurant_reservations_path, :html => {'data-validate' => "parsley"}  do  |f| %>
+  <%= form_for @reservation, url:  restaurant_reservations_path(:restaurant_id => @reservation.restaurant_id, :html => {'data-validate' => "parsley"}  do  |f| %>
 
       <p><%= f.label :email %></p>
       <p><%= f.text_field :email, 'data-trigger' => 'change', 'data-required' =>'true', 'data-type' => 'email'  %></p>

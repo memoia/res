@@ -28,12 +28,15 @@ class ReservationsController < ApplicationController
   # POST /reservations
   # POST /reservations.json
   def create
+    @restaurant = Restaurant.find params[:restaurant_id]
     #@reservation = Reservation.new(reservation_params)
-    set_reservation
+    #@reservation = @restaurant.reservations.build params[:reservation]
+    @reservation = @restaurant.reservations.new(reservation_params)
+
 
     respond_to do |format|
       if @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
+        format.html { redirect_to restaurant_reservation_path(@reservation.restaurant_id, @reservation.id), notice: 'Reservation was successfully created.' }
         format.json { render :show, status: :created, location: @reservation }
       else
         format.html { render :new }

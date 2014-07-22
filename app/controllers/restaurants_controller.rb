@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   include Devise
 
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_owner!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create]
   before_filter :credentials_filter, :only => [:edit, :destroy]
 
 
@@ -23,7 +23,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new
     @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: 201, acl: :public_read)
     #@user = User.new
-    @owner = Owner.new
+    @user = User.new
   end
 
   # GET /restaurants/1/edit
@@ -34,7 +34,7 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.owner = current_owner
+    @restaurant.user = current_user
 
 
     respond_to do |format|
@@ -79,15 +79,15 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
-  #Add owner param here.
+  #Add user param here.
   # Never trust parameters from the scary internet, only allow the white list through.
   def restaurant_params
     params.require(:restaurant).permit(:name, :desc, :full_address, :phone, :avatar)
   end
 
   def credentials_filter
-    owner = Restaurant.find(params[:id]).owner
-    unless owner == current_owner
+    user = Restaurant.find(params[:id]).user
+    unless user == current_user
       flash[:message] = "Please login with the appropiate credentials"
       redirect_to :root
     end

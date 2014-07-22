@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
 
-  devise_for :owners
+  devise_for :users
+  #resources :owners
+  #resources :restaurants
+  resources :reservations, :except => [:new, :create]
 
   resources :restaurants do 
     resources :reservations
   end
-
-  #resources :owners
-  #resources :restaurants
-  #resources :reservations
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

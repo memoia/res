@@ -267,7 +267,7 @@ $.Widget.prototype = {
 			});
 			this.document = $( element.style ?
 				// element within the document
-				element.ownerDocument :
+				element.userDocument :
 				// element is window or document
 				element.document || element );
 			this.window = $( this.document[0].defaultView || this.document[0].parentWindow );

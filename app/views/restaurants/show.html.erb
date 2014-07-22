@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= image_tag @restaurant.avatar.url(:masthead) if @restaurant.avatar?%>
+
 <p>
   <strong>Name:</strong>
   <%= @restaurant.name %>
@@ -11,13 +13,14 @@
 </p>
 
 <p>
-  <strong>current owner id:</strong>
-  <%= current_owner.id %>
+  <strong>current user id:</strong>
+  <%= current_user.id. %>
+  <%= current_user.id if defined?(current_user.id) %>
 </p>
 
 <p>
-  <strong>restaurant owner:</strong>
-  <%= @restaurant.owner.id %>
+  <strong>restaurant user:</strong>
+  <%= @restaurant.user.id %>
 </p>
 
 <p>
@@ -32,13 +35,36 @@
 
 <p>
   <strong>Avatar:</strong>
- 
- <%= image_tag @restaurant.avatar.url(:masthead)%>
+  </p>
 
-</p>
+ 
+
+ <%- if current_user == @restaurant.user %>
+  <h2>Reservations</h2>
+  <table class="table table-striped">
+    <tr>
+      <th>Email</th>
+      <th>Reserve On</th>
+      <th>Message</th>
+      <th></th>
+    </tr>
+    <%- @restaurant.reservations.each do |reservation| %>
+      <tr>
+        <td><%= reservation.email %></td>
+        <td><%#= reservation.reserve_on %></td>
+        <td><%= reservation.message %></td>
+        <td><%= link_to 'Marked as Confirmed', reservation_path(reservation), :method => :delete, :confirm => 'Mark this reservation confirmed?' %></td>
+      </tr>
+    <%- end %>
+  </table>
+<%- else %>
+  <h2>New Reservation</h2>
+  <%= render 'reservations/form', :reservation => @reservation %>
+<%- end %>
+
 
 <p>"Hello World"</p>
-<% if @restaurant.owner == current_owner %>
+<% if @restaurant.user == current_user %>
   | <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>  
 <% end %>
   | <%= link_to 'New Reservation', new_restaurant_reservation_path(@restaurant) %>

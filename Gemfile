@@ -39,9 +39,14 @@ gem 'pry'
 #lab 2
 gem 'carrierwave'
 gem 'bootstrap-sass'
-gem 'quiet_assets'
 gem 'rmagick', :require => 'RMagick'
 gem 'aws-sdk'
+gem 'fog'
 
 #lab 3
 gem 'devise'
+
+group :development do
+	gem 'better_errors'
+	gem 'quiet_assets'
+end

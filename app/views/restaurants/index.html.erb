@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Owner ID</th>
+      <th>User ID</th>
       <th>Name</th>
       <th>Desc</th>
       <th>Full address</th>
@@ -15,13 +15,13 @@
   <tbody>
     <% @restaurants.each do |restaurant| %>
       <tr>
-        <td><%= restaurant.owner_id %></td>
+        <td><%= restaurant.user_id %></td>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.desc %></td>
         <td><%= restaurant.full_address %></td>
         <td><%= restaurant.phone %></td>
         <td><%=image_tag restaurant.avatar_url(:thumb).to_s %></td>
-        <% if restaurant.owner == current_owner %>
+        <% if restaurant.user == current_user %>
           <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
           <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <td>
