@@ -14,7 +14,6 @@
 
 <p>
   <strong>current user id:</strong>
-  <%= current_user.id. %>
   <%= current_user.id if defined?(current_user.id) %>
 </p>
 
@@ -37,9 +36,10 @@
   <strong>Avatar:</strong>
   </p>
 
- 
+   <%= render 'reservations/form', :reservation => @reservation %>
+<p>End Reservations Form</p>
 
- <%- if current_user == @restaurant.user %>
+ <% if current_user == @restaurant.user %>
   <h2>Reservations</h2>
   <table class="table table-striped">
     <tr>
@@ -48,7 +48,7 @@
       <th>Message</th>
       <th></th>
     </tr>
-    <%- @restaurant.reservations.each do |reservation| %>
+    <%= @restaurant.reservations.each do |reservation| %>
       <tr>
         <td><%= reservation.email %></td>
         <td><%#= reservation.reserve_on %></td>
@@ -57,13 +57,11 @@
       </tr>
     <%- end %>
   </table>
-<%- else %>
-  <h2>New Reservation</h2>
-  <%= render 'reservations/form', :reservation => @reservation %>
-<%- end %>
+<% else %>
 
 
-<p>"Hello World"</p>
+<% end %>
+
 <% if @restaurant.user == current_user %>
   | <%= link_to 'Edit', edit_restaurant_path(@restaurant) %>  
 <% end %>
