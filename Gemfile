@@ -32,7 +32,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 
 #new gems
-gem 'pry'
 
 #lab 1
 
@@ -49,4 +48,6 @@ gem 'devise'
 group :development do
 	gem 'better_errors'
 	gem 'quiet_assets'
+  gem 'pry'
+  gem "binding_of_caller"
 end

@@ -22,7 +22,8 @@
         <td><%= reservation.confirmed %></td>
         <td><%#= link_to 'Show', restaurant_reservation_path(restaurant_id) %></td>
         <td><%#= link_to 'Edit', edit_restaurant_reservation_path(restaurant_id) %></td>
-        <td><%#= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy Reservation', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', reservations_path(reservation.id), method: :destroy, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Reservation', new_restaurant_reservation_path %>
+<%#= link_to 'New Reservation', new_restaurant_reservation_path %>

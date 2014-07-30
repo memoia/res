@@ -22,9 +22,12 @@
         <td><%= restaurant.phone %></td>
         <td><%= link_to image_tag(restaurant.avatar_url(:thumb).to_s), restaurant_path(restaurant) %></td>
         <% if restaurant.user == current_user %>
-          <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-          <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <td>
+            <td><%#= link_to ('Show Reservations', {controller =>'reservations', :restaurant_id => restaurant.id}, :class => 'action show')%></td>
+            <td><%= link_to 'List Reservations', :controller => :reservations, :restaurant_id => restaurant.id, :action => :index %></td>
+            <td><%= link_to 'List Reservations By Path', restaurant_reservations_path(restaurant)%></td>
+            <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+            <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td>
         <% end %>
 
       </tr>

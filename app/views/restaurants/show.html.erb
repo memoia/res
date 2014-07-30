@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<div id="restaurant_info">
 <%= image_tag @restaurant.avatar.url(:masthead) if @restaurant.avatar?%>
+
 
 <p>
   <strong>Name:</strong>
@@ -35,12 +37,14 @@
 <p>
   <strong>Avatar:</strong>
   </p>
+</div>
 
-   <%= render 'reservations/form', :reservation => @reservation %>
-<p>End Reservations Form</p>
+<%= render 'reservations/form', :reservation => @reservation %>
 
  <% if current_user == @restaurant.user %>
+
   <h2>Reservations</h2>
+  <p>Test</p>
   <table class="table table-striped">
     <tr>
       <th>Email</th>
@@ -48,12 +52,24 @@
       <th>Message</th>
       <th></th>
     </tr>
+    <p>Another test</p>
+    <%#= render 'reservations/index', :restaurant_id => @restaurant.id %>
+    <td><%#= link_to 'List Reservations', :controller => :reservations, :restaurant_id => restaurant.id, :action => :index %></td>
+
+
+
     <%= @restaurant.reservations.each do |reservation| %>
       <tr>
         <td><%= reservation.email %></td>
-        <td><%#= reservation.reserve_on %></td>
+        <td><%= reservation.requested_date.strftime("%m/%d/%Y") %></td>
         <td><%= reservation.message %></td>
-        <td><%= link_to 'Marked as Confirmed', reservation_path(reservation), :method => :delete, :confirm => 'Mark this reservation confirmed?' %></td>
+        <td><%= link_to 'Destroy', reservation_path(reservation.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+
+        <td><%#= link_to 'Marked as Confirmed', reservation_path(@reservation), :method => :delete, :confirm => 'Mark this reservation confirmed?' %></td>
+        <td><%#= link_to 'Destroy', [:delete, reservation], :method => :delete %></td>
+        <td><%#= link_to 'Destroy', [:delete, reservation], :method => :delete %></td>
+
+
       </tr>
     <%- end %>
   </table>

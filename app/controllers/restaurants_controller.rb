@@ -2,19 +2,18 @@ class RestaurantsController < ApplicationController
   include Devise
 
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create]
-  before_filter :credentials_filter, :only => [:edit, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :ensure_owner_owns_restaurant, only: [:edit, :update, :destroy]
 
+  # define instance variables you are going to use in your views
 
   # GET /restaurants
-  # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
   end
 
 
   # GET /restaurants/1
-  # GET /restaurants/1.json
   def show
     @reservation = Reservation.new
   end
@@ -32,7 +31,6 @@ class RestaurantsController < ApplicationController
   end
 
   # POST /restaurants
-  # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.user = current_user
@@ -42,35 +40,28 @@ class RestaurantsController < ApplicationController
       #ovveride default save method with add
       if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
-        format.json { render :show, status: :created, location: @restaurant }
       else
         format.html { render :new }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /restaurants/1
-  # PATCH/PUT /restaurants/1.json
   def update
     respond_to do |format|
       if @restaurant.update(restaurant_params)
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
-        format.json { render :show, status: :ok, location: @restaurant }
       else
         format.html { render :edit }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # DELETE /restaurants/1
-  # DELETE /restaurants/1.json
   def destroy
     @restaurant.destroy
     respond_to do |format|
       format.html { redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -93,4 +84,13 @@ class RestaurantsController < ApplicationController
       redirect_to :root
     end
   end
+
+  def ensure_owner_owns_restaurant
+    #TODO: undefined method error
+    unless current_owner_owns_restaurant(@restaurant)
+      flash[:alert] = "You can't edit restaurants you don't own"
+      redirect_to restaurants_path
+    end
+  end
+
 end
